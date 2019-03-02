@@ -1,0 +1,32 @@
+stages:
+  - deploy
+
+
+deploy_for_production:
+    stage: deploy
+    only:
+        - master
+    tags:
+        - vlink-process-service-production
+    before_script:
+        - cd /opt/push/projects/vlink_process
+    script:
+        - git reset --hard
+        - git checkout master
+        - git pull origin master
+
+
+deploy_for_testing:
+    stage: deploy
+    only:
+        - testing-disable
+    tags:
+        - vlink-process-service-testing
+    before_script:
+        - cd /opt/push/projects/vlink_process
+    script:
+        - git reset --hard
+        - git checkout testing
+        - git pull origin testing
+
+
